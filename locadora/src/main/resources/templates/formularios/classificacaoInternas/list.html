@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Classificações Internas</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Classificações Internas</h1>
+
+        <a th:href="@{/classificacoesinternas/novo}" class="btn-novo">Nova Classificação</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Valor Aluguel (R$)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="classificacao : ${listaClassificacoes}">
+                    <td th:text="${classificacao.id}">1</td>
+                    <td th:text="${classificacao.descricao}">Nome da Classificação</td>
+                    <!-- Formatando o valor para R$ 12,34 -->
+                    <td th:text="${'R$ ' + #numbers.formatDecimal(classificacao.valorAluguel, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                    <td>
+                        <a th:href="@{/classificacoesinternas/editar/{id}(id=${classificacao.id})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/classificacoesinternas/excluir/{id}(id=${classificacao.id})}" class="btn-excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

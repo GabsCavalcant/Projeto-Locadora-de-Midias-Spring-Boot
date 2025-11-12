@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Estados</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Estados</h1>
+
+        <a th:href="@{/estados/novo}" class="btn-novo">Novo Estado</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Sigla</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estado : ${listaEstados}">
+                    <td th:text="${estado.id}">1</td>
+                    <td th:text="${estado.nome}">Nome do Estado</td>
+                    <td th:text="${estado.sigla}">UF</td>
+                    <td>
+                        <a th:href="@{/estados/editar/{id}(id=${estado.id})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/estados/excluir/{id}(id=${estado.id})}" class="btn-excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

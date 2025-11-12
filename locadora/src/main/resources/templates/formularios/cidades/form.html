@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- Lembre-se do xmlns:th="http://www.thymeleaf.org" -->
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Cidade</title>
+    <!-- O caminho th:href="@{/css/estilos.css}" procura o arquivo em 'src/main/resources/static/css/estilos.css' -->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style>
+        .error { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${cidade.id == null ? 'Nova Cidade' : 'Editar Cidade'}">Formulário</h1>
+
+        <form th:action="@{/cidades/salvar}" th:object="${cidade}" method="post">
+
+            <!-- Campo de ID escondido (necessário para o "salvar" saber quem editar) -->
+            <input type="hidden" th:field="*{id}" />
+
+            <!-- Campo Nome -->
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" />
+                <!-- Exibe o erro de validação para o campo 'nome' -->
+                <div class="error" th:if="${#fields.hasErrors('nome')}"
+                     th:errors="*{nome}"></div>
+            </div>
+
+            <!-- O Dropdown (Select) de Estados -->
+            <div>
+                <label for="estado">Estado:</label>
+                <select id="estado" th:field="*{estado}">
+                    <option value="">Selecione um Estado</option>
+                    <!--
+                      Loop sobre a 'listaEstados' vinda do Controller
+                      'th:value' será o ID do estado (ex: 1)
+                      'th:text' será o Nome do estado (ex: São Paulo)
+                    -->
+                    <option th:each="est : ${listaEstados}"
+                            th:value="${est.id}"
+                            th:text="${est.nome}">
+                    </option>
+                </select>
+                <!-- Exibe o erro de validação para o campo 'estado' -->
+                <div class="error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></div>
+            </div>
+
+            <!-- Botões -->
+            <div>
+                <button type="submit">Salvar</button>
+                <a th:href="@{/cidades/listar}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

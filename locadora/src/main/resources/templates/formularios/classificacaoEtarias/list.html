@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Classificações Etárias</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Classificações Etárias</h1>
+
+        <a th:href="@{/classificacoesetarias/novo}" class="btn-novo">Nova Classificação</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="classificacao : ${listaClassificacoes}">
+                    <td th:text="${classificacao.id}">1</td>
+                    <td th:text="${classificacao.descricao}">Nome da Classificação</td>
+                    <td>
+                        <a th:href="@{/classificacoesetarias/editar/{id}(id=${classificacao.id})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/classificacoesetarias/excluir/{id}(id=${classificacao.id})}" class="btn-excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

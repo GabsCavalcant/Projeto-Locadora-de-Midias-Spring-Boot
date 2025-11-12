@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Verifique o xmlns:th na linha abaixo -->
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Cidades</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Cidades</h1>
+
+        <a th:href="@{/cidades/novo}" class="btn-novo">Nova Cidade</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome da Cidade</th>
+                    <th>Estado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop para exibir cada 'cidade' na 'listaCidades' -->
+                <tr th:each="cidade : ${listaCidades}">
+                    <td th:text="${cidade.id}">1</td>
+                    <td th:text="${cidade.nome}">Nome da Cidade</td>
+                    <!-- Acessamos o objeto 'estado' dentro da 'cidade' -->
+                    <td th:text="${cidade.estado.nome}">Nome do Estado</td>
+                    <td>
+                        <a th:href="@{/cidades/editar/{id}(id=${cidade.id})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/cidades/excluir/{id}(id=${cidade.id})}" class="btn-excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

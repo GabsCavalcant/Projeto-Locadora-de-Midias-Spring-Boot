@@ -1,0 +1,27 @@
+Arquivos compilados do Maven (A pasta mais importante a ser ignorada)
+
+/target/
+
+Arquivos de log
+
+*.log
+.log.
+
+Arquivos de configuração do NetBeans
+
+/nbproject/
+/nbactions.xml
+/build/
+/dist/
+
+Arquivos do Maven (wrapper)
+
+/.mvn/
+mvnw
+mvnw.cmd
+
+Arquivos de outras IDEs (IntelliJ, VSCode)
+
+.idea/
+.vscode/
+*.iml

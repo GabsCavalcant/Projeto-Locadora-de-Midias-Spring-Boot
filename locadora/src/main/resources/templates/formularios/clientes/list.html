@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- 
+  ERRO COMUM: Lembre-se de verificar se 'xmlns:th' está correto.
+-->
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+    <!-- Link para seu CSS que deve estar em /static/css/estilo.css -->
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Clientes</h1>
+
+        <a th:href="@{/clientes/novo}" class="btn-novo">Novo Cliente</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>E-mail</th>
+                    <th>Cidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 
+                  Looping do Thymeleaf: 
+                  Para cada 'cliente' na 'listaClientes' (que veio do Controller), 
+                  crie uma linha <tr>
+                -->
+                <tr th:each="cliente : ${listaClientes}">
+                    <td th:text="${cliente.id}">1</td>
+                    <td th:text="${cliente.nome + ' ' + cliente.sobrenome}">Nome Completo</td>
+                    <td th:text="${cliente.cpf}">999.999.999-99</td>
+                    <td th:text="${cliente.email}">email@exemplo.com</td>
+                    <!-- Acessamos o objeto 'cidade' e depois 'nome' -->
+                    <td th:text="${cliente.cidade != null ? cliente.cidade.nome : 'N/A'}">Nome da Cidade</td>
+                    <td>
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/clientes/excluir/{id}(id=${cliente.id})}" class="btn-excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Link para a raiz do site (que ainda não criamos) -->
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tipos</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Tipos</h1>
+        
+        <a th:href="@{/tipos/novo}" class="btn-novo">Novo Tipo</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop para exibir cada 'tipo' da 'listaTipos' -->
+                <tr th:each="tipo : ${listaTipos}">
+                    <td th:text="${tipo.id}">1</td>
+                    <td th:text="${tipo.descricao}">Nome do Tipo</td>
+                    <td>
+                        <a th:href="@{/tipos/editar/{id}(id=${tipo.id})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/tipos/excluir/{id}(id=${tipo.id})}" class="btn-excluir" 
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

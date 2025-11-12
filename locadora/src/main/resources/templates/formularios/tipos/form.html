@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Tipo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <style>
+        .error { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- O Título muda: se o ID for nulo, é 'Novo', senão é 'Editar' -->
+        <h1 th:text="${tipo.id == null ? 'Novo Tipo' : 'Editar Tipo'}">Formulário de Tipo</h1>
+
+        <!-- 
+          Formulário Thymeleaf:
+          - th:action aponta para /tipos/salvar (POST)
+          - th:object é o 'tipo' (vazio ou preenchido) que veio do Controller
+        -->
+        <form th:action="@{/tipos/salvar}" th:object="${tipo}" method="post">
+            
+            <!-- Campo de ID escondido. Necessário para o 'salvar' saber quem está editando -->
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label for="descricao">Descrição:</label>
+                <!-- th:field liga este input ao atributo 'descricao' do 'tipo' -->
+                <input type="text" id="descricao" th:field="*{descricao}" />
+                
+                <!-- Mostra o erro de validação (ex: "A descrição não pode ser nula.") -->
+                <div class="error" th:if="${#fields.hasErrors('descricao')}" 
+                     th:errors="*{descricao}"></div>
+            </div>
+
+            <div>
+                <button type="submit">Salvar</button>
+                <a th:href="@{/tipos/listar}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Estado</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <style>
+        .error { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${estado.id == null ? 'Novo Estado' : 'Editar Estado'}">Formulário</h1>
+
+        <form th:action="@{/estados/salvar}" th:object="${estado}" method="post">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" />
+                <div class="error" th:if="${#fields.hasErrors('nome')}"
+                     th:errors="*{nome}"></div>
+            </div>
+
+            <div>
+                <label for="sigla">Sigla:</label>
+                <input type="text" id="sigla" th:field="*{sigla}" maxlength="2" />
+                <div class="error" th:if="${#fields.hasErrors('sigla')}"
+                     th:errors="*{sigla}"></div>
+            </div>
+
+            <div>
+                <button type="submit">Salvar</button>
+                <a th:href="@{/estados/listar}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

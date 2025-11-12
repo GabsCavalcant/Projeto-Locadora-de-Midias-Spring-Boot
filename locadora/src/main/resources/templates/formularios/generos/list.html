@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- Adicionamos o 'xmlns:th' para o Thymeleaf funcionar -->
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Gêneros</title>
+    <!-- Link para seu CSS (lembre de copiar seu CSS para /static/css) -->
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Gêneros</h1>
+        
+        
+        <a th:href="@{/generos/novo}" class="btn-novo">Novo Gênero</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 
+                  Looping do Thymeleaf: 
+                  Para cada 'gen' na 'listaGeneros' (que veio do Controller), 
+                  crie uma linha <tr>
+                -->
+                <tr th:each="gen : ${listaGeneros}">
+                    <!-- Pega o ID do objeto 'gen' -->
+                    <td th:text="${gen.id}">1</td>
+                    <!-- Pega a Descrição do objeto 'gen' -->
+                    <td th:text="${gen.descricao}">Nome do Gênero</td>
+                    <td>
+                        <!-- Link para /generos/editar/{id} -->
+                        <a th:href="@{/generos/editar/{id}(id=${gen.id})}" class="btn-editar">Editar</a>
+                        
+                        <!-- Link para /generos/excluir/{id} -->
+                        <a th:href="@{/generos/excluir/{id}(id=${gen.id})}" class="btn-excluir" 
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>
