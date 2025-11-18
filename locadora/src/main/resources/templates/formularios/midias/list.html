@@ -19,7 +19,6 @@
                     <th>Ano</th>
                     <th>Gênero</th>
                     <th>Ator Principal</th>
-                    <th>Ator Coadjuvante</th> <!-- <-- COLUNA ADICIONADA -->
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -28,12 +27,8 @@
                     <td th:text="${midia.id}">1</td>
                     <td th:text="${midia.titulo}">Harry Potter</td>
                     <td th:text="${midia.anoLancamento}">2001</td>
-                    <td th:text="${midia.genero?.descricao}">Aventura</td>
+                    <td th:text="${midia.genero?.descricao}">Aventura</td> <!-- Usamos '?' por segurança -->
                     <td th:text="${midia.atorPrincipal?.nome + ' ' + midia.atorPrincipal?.sobrenome}">Daniel Radcliffe</td>
-                    
-                 
-                    <td th:text="${midia.atorCoadjuvante?.nome + ' ' + midia.atorCoadjuvante?.sobrenome}">Ator Coadjuvante</td>
-                    
                     <td>
                         <a th:href="@{/midias/editar/{id}(id=${midia.id})}" class="btn-editar">Editar</a>
                         <a th:href="@{/midias/excluir/{id}(id=${midia.id})}" class="btn-excluir"

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Exemplar</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style>
+        .error { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Título agora checa 'codigoInterno' -->
+        <h1 th:text="${exemplar.codigoInterno == null ? 'Novo Exemplar' : 'Editar Exemplar'}">Formulário</h1>
+
+        <form th:action="@{/exemplares/salvar}" th:object="${exemplar}" method="post">
+            <!-- O campo de ID 'id' foi REMOVIDO -->
+
+            <div>
+                <label for="midia">Mídia:</label>
+                <select id="midia" th:field="*{midia}">
+                    <option value="">Selecione a Mídia...</option>
+                    <option th:each="midia : ${listaMidias}"
+                            th:value="${midia.id}"
+                            th:text="${midia.titulo + ' (Ano: ' + midia.anoLancamento + ')'}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('midia')}" th:errors="*{midia}"></div>
+            </div>
+
+            <!-- CAMPO ATUALIZADO (codigoInterno agora é o ID) -->
+            <div>
+                <label for="codigoInterno">Código Interno (ID):</label>
+                <!-- 
+                  Verifica se é um novo exemplar (null). Se for, permite editar.
+                  Se for uma edição (não null), bloqueia o campo (readonly) 
+                  para não deixar mudar a chave primária.
+                -->
+                <input type="text" id="codigoInterno" th:field="*{codigoInterno}" 
+                       th:readonly="${exemplar.codigoInterno != null}" />
+                <div class="error" th:if="${#fields.hasErrors('codigoInterno')}" th:errors="*{codigoInterno}"></div>
+            </div>
+
+            <div>
+                <label for="disponivel">Disponível:</label>
+                <select id="disponivel" th:field="*{disponivel}">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('disponivel')}" th:errors="*{disponivel}"></div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit">Salvar</button>
+                <a th:href="@{/exemplares/listar}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

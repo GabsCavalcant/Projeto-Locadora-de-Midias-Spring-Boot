@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Exemplares</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Exemplares</h1>
+        
+        <a th:href="@{/exemplares/novo}" class="btn-novo">Novo Exemplar</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Código Interno (ID)</th> <!-- <-- CAMPO ATUALIZADO -->
+                    <th>Mídia (Título)</th>
+                    <th>Disponível?</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="exemplar : ${listaExemplares}">
+                    <td th:text="${exemplar.codigoInterno}">A-001</td> <!-- <-- CAMPO ATUALIZADO -->
+                    <td th:text="${exemplar.midia?.titulo}">Harry Potter</td>
+                    <td th:text="${exemplar.disponivel ? 'Sim' : 'Não'}">Sim</td>
+                    <td>
+                        <!-- CORRIGIDO AQUI: Passa o codigoInterno como 'id' -->
+                        <a th:href="@{/exemplares/editar/{id}(id=${exemplar.codigoInterno})}" class="btn-editar">Editar</a>
+                        <a th:href="@{/exemplares/excluir/{id}(id=${exemplar.codigoInterno})}" class="btn-excluir"
+                           onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>
