@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Locações em Aberto</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Locações em Aberto</h1>
+        <a th:href="@{/locacoes/novo}" class="btn-novo">Nova Locação</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Itens Alugados (Valor)</th> <!-- Título Atualizado -->
+                    <th>Data Início</th>
+                    <th>Devolução Prevista</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="loc : ${listaLocacoes}">
+                    <td th:text="${loc.id}">1</td>
+                    <td th:text="${loc.cliente.nome + ' ' + loc.cliente.sobrenome}">Cliente</td>
+                    
+                    <!-- COLUNA DE ITENS: Mostra Título e Valor -->
+                    <td>
+                        <div th:each="item : ${loc.itens}">
+                            
+                            <span th:text="${'- ' + item.exemplar.midia.titulo + ' (R$ ' + #numbers.formatDecimal(item.valor, 1, 2, 'COMMA') + ')'}">Matrix (R$ 10,00)</span>
+                        </div>
+                    </td>
+                    
+                    <td th:text="${#temporals.format(loc.dataInicio, 'dd/MM/yyyy')}">Data</td>
+                    <td th:text="${#temporals.format(loc.dataFim, 'dd/MM/yyyy')}">Data</td>
+                    <td>
+                        <a th:href="@{/locacoes/devolver/{id}(id=${loc.id})}" 
+                           class="btn-editar" 
+                           onclick="return confirm('Confirmar devolução? O item sairá desta lista.')">Devolver</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/}">Voltar ao Início</a>
+    </div>
+</body>
+</html>

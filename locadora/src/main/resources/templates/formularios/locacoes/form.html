@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Locação</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Nova Locação</h1>
+
+        <form th:action="@{/locacoes/salvar}" th:object="${locacao}" method="post">
+            
+            <!-- Seleção de Cliente -->
+            <div style="margin-bottom: 20px;">
+                <label>Cliente:</label>
+                <select th:field="*{cliente}" required>
+                    <option value="">Selecione um Cliente...</option>
+                    <option th:each="cli : ${listaClientes}" 
+                            th:value="${cli.id}" 
+                            th:text="${cli.nome + ' ' + cli.sobrenome}"></option>
+                </select>
+            </div>
+
+            <!-- Seleção de Exemplares (Múltipla escolha) -->
+            <div style="margin-bottom: 20px;">
+                <label>Exemplares Disponíveis (Segure Ctrl para selecionar vários):</label>
+                <br>
+                <select name="exemplaresSelecionados" multiple style="height: 150px; width: 100%;">
+                    <option th:each="ex : ${listaExemplaresDisponiveis}" 
+                            th:value="${ex.codigoInterno}" 
+                            th:text="${ex.midia.titulo + ' - Cód: ' + ex.codigoInterno}"></option>
+                </select>
+            </div>
+
+            <button type="submit">Realizar Locação</button>
+            <a th:href="@{/locacoes/listar}">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
