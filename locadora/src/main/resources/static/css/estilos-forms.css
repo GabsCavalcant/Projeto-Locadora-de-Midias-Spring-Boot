@@ -31,6 +31,7 @@ form{
     padding: 40px;
     background-color: white;
     text-align: center;
+    width: 50%;
 }
 
 .container p {
@@ -79,4 +80,8 @@ form{
     color: #999ca1;
     align-items: center;
     padding-bottom: 30px;
+}
+
+.lado-a-lado{
+    
 }
