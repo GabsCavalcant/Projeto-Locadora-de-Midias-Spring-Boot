@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+    background-color: #ebf0f6;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px
+}
+
+.cabecalho{
+    text-align: left;
+    width: 100%;
+}
+
+.lado-a-lado{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabela {
+    background-color: white;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.tabela table{
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+}
+
+.tabela table thead{
+    padding: 5px;
+}
+
+.tabela table tbody tr:nth-child(even){
+    background-color: rgb(9,121,176);
+}
+
+.tabela table tbody tr:nth-child(odd){
+    background-color: rgb(154,206,248);
+}

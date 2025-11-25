@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LocacaoMidiasApplication<locadora>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.locadoramidia.locadora.LocacaoMidiasApplication",
+            "projectName": "locadora",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

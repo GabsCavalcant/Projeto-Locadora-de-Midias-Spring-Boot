@@ -3,36 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Estado</title>
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos-forms.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .error { color: red; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 th:text="${estado.id == null ? 'Novo Estado' : 'Editar Estado'}">Formulário</h1>
+        <a class="retorno" th:href="@{/estados/listar}">
+            <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17 9H5.414l3.293-3.293a.999.999 0 10-1.414-1.414l-5 5a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0 .999.999 0 000-1.414L5.414 11H17a1 1 0 100-2z" fill="#999ca1"/></svg>
+            <p>Voltar</p>
+        </a>
+
+        <h1 th:text="${estado.id == null ? 'Novo Estado' : 'Editar Estado'}">Cadastrar Estado</h1>
+        <p>Preencha as informações do Estado</p>
 
         <form th:action="@{/estados/salvar}" th:object="${estado}" method="post">
 
             <input type="hidden" th:field="*{id}" />
 
-            <div>
+            <div class="espaco-input">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" th:field="*{nome}" />
                 <div class="error" th:if="${#fields.hasErrors('nome')}"
                      th:errors="*{nome}"></div>
             </div>
 
-            <div>
+            <div class="espaco-input">
                 <label for="sigla">Sigla:</label>
                 <input type="text" id="sigla" th:field="*{sigla}" maxlength="2" />
                 <div class="error" th:if="${#fields.hasErrors('sigla')}"
                      th:errors="*{sigla}"></div>
             </div>
 
-            <div>
+            <div class="botoes">
                 <button type="submit">Salvar</button>
-                <a th:href="@{/estados/listar}">Cancelar</a>
             </div>
         </form>
     </div>

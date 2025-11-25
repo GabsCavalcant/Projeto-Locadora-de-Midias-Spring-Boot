@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Classificação Etária</title>
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos-forms.css}">
     <style>
         .error { color: red; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 th:text="${classificacao.id == null ? 'Nova Classificação' : 'Editar Classificação'}">Formulário</h1>
+        <a class="retorno" th:href="@{/classificacoesetarias/listar}">
+            <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17 9H5.414l3.293-3.293a.999.999 0 10-1.414-1.414l-5 5a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0 .999.999 0 000-1.414L5.414 11H17a1 1 0 100-2z" fill="#999ca1"/></svg>
+            <p>Voltar</p>
+        </a>
+        <h1 th:text="${classificacao.id == null ? 'Nova Classificação' : 'Editar Classificação'}">Preencha os dados da Classificação Etária</h1>
 
         <form th:action="@{/classificacoesetarias/salvar}" th:object="${classificacao}" method="post">
 
             <input type="hidden" th:field="*{id}" />
 
-            <div>
+            <div class="espaco-input">
                 <label for="descricao">Descrição:</label>
                 <input type="text" id="descricao" th:field="*{descricao}" />
 
@@ -24,9 +28,8 @@
                      th:errors="*{descricao}"></div>
             </div>
 
-            <div>
+            <div class="botoes">
                 <button type="submit">Salvar</button>
-                <a th:href="@{/classificacoesetarias/listar}">Cancelar</a>
             </div>
         </form>
     </div>

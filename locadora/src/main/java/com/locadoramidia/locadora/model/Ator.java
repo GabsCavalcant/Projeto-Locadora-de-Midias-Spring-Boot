@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Past;
 import java.time.LocalDate; // <-- 1. O import correto e moderno para datas
 
 /**
@@ -32,6 +33,7 @@ public class Ator {
     private String sobrenome;
     
     @NotNull(message = "A data de nascimento não pode ser nula.")
+    @Past(message = "A data deve estar no passado.")
     @Column(name = "dataEstreia") // 2. Como a coluna vai se chamar no banco
     private LocalDate dataEstreia; // 3. O tipo de dado correto
 

@@ -1,99 +1,146 @@
-/* Estilos gerais */
-body {
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    background-color: #FFFFFF;
-}
-
-a {
-    color: #0484AE;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #000000;
-    text-decoration: underline;
-}
-
-.alerta {
-    border: dashed thin #000000;
-    border-radius: 10px;
-    padding: 5px;
-    border-color: #ff3333;
-    background-color: #EEEEEE
-}
-
-.tabela-listagem {
-    background: #000000;
-}
-
-.tabela-listagem th {
-    background: #EEEEEE;
-    padding: 5px;
-}
-
-.tabela-listagem td {
-    background: #FFFFFF;
-    padding: 5px;
-}
-
-.alinhar-direita {
-    text-align: right;
-}
-
-#divErros {
-    font-weight: bold;
-    border: solid 2px #660000;
-    border-radius: 10px;
-    background-color: #ff3333;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-
-/* Estilos para a página de venda */
-#divCliente {
-    font-weight: bold;
-    width: 700px;
-    border: solid 2px #003366;
-    border-radius: 10px;
-    background-color: #0099cc;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#divItensVenda {
-    font-weight: bold;
-    width: 700px;
-    border: solid 2px #993300;
-    border-radius: 10px;
-    background-color: #ff9933;
-    padding: 10px;
-}
-
-#selectCliente {
+/* Estilos e fonte (Essenciais para a sidebar) */
+body,
+html {
+    font-family: 'Inter', sans-serif;
+    height: 100%;
     width: 100%;
+    background-color: #ebf0f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
-#selectProduto {
-    width: 250px;
+.flex {
+    width: 100%;
+    height: 100%;
 }
 
-#selectItensVenda {
-    font-family: monospace;
-    width: 350px;
-    height: 200px;
+/* --- ESTILOS DA BARRA LATERAL EXPANSÍVEL (Desktop) --- */
+.sidebar {
+    background-color: rgb(63,93,200);
+    /* Indigo 800 */
+    color: white;
+    transition: width 0.5s ease, padding 0.5s ease, border-radius 0.5s ease;
+    overflow-x: hidden;
+    /* Garante que o conteúdo que extrapola a largura não crie scroll */
+    width: 96px;
+    /* Largura Mínima (w-24) - Mantido */
+    padding: 1rem;
+    /* Padding (p-4) - Mantido */
+    position: relative;
+    z-index: 10;
+    max-height: 90vh;
 }
 
-#txtQuantidade {
-    width: 100px;
+/* Estilos para Desktop (md: e acima) */
+@media (min-width: 768px) {
+    .sidebar {
+        height: auto;
+        max-height: calc(100vh - 4rem);
+        margin: 0;
+        border-radius: 1.5rem;
+        /* rounded-3xl */
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .sidebar:hover {
+        width: 20vw;
+        /* Largura expandida (w-72) - Mantido */
+        padding: 1.5rem;
+        /* Mantém o padding expandido */
+    }
 }
 
-#divTotal {
-    text-align: right;
+/* Torna o texto do link visível/invisível */
+.sidebar-link span {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.5s ease 0.1s;
+    /* CORREÇÃO PARA SCROLLBAR HORIZONTAL: Força o elemento flex a respeitar o overflow: hidden do pai */
+    min-width: 0;
+    overflow: hidden;
 }
 
-.btns-itens-venda {
-    text-align: center; padding: 20px;
+.sidebar:hover .sidebar-link span {
+    opacity: 1;
+}
+
+.sidebar-title {
+    transition: opacity 0.5s ease, visibility 0.5s ease, height 0.5s ease, padding 0.5s ease;
+    white-space: nowrap;
+}
+
+.sidebar:not(:hover) .sidebar-title {
+    opacity: 0;
+    visibility: hidden;
+    height: 0 !important;
+    /* Remove altura */
+    padding-top: 0 !important;
+    /* Remove padding vertical */
+    padding-bottom: 0 !important;
+    /* Remove padding vertical */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+}
+
+/* Estilo para links da barra lateral */
+.sidebar-link {
+    transition: background-color 0.2s;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.5rem;
+    /* p-2 para compactar os ícones */
+}
+
+.sidebar:hover .sidebar-link {
+    padding: 0.75rem;
+    /* Restaura p-3 para a versão expandida */
+}
+
+.sidebar-link:hover {
+    background-color: rgb(63,93,200);
+    /* Darker indigo on hover */
+}
+
+/* Ícones */
+.sidebar-link svg {
+    color: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke-width: 2;
+    margin-right: 0.75rem;
+    min-width: 1.5rem;
+    flex-shrink: 0;
+    /* Garante que o ícone não encolha */
+}
+
+/* --- ESTILOS DA BARRA DE ROLAGEM VERTICAL (Scrollbar) --- */
+.sidebar-content {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(154,206,248) rgb(63,93,200);
+}
+
+.sidebar-content::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+}
+
+.sidebar-content:hover::-webkit-scrollbar-thumb {
+    background-color: rgb(63,93,200);
+}
+
+main, .show {
+    width: 100%;
+    height: 100%;
 }

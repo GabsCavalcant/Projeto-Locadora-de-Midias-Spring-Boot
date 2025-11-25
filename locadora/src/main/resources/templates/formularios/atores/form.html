@@ -3,16 +3,25 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Ator</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <!--<link rel="stylesheet" th:href="@{/css/estilos.css}">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos-forms.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .error { color: red; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="container">
+        <a class="retorno" th:href="@{/atores/listar}">
+            <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17 9H5.414l3.293-3.293a.999.999 0 10-1.414-1.414l-5 5a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0 .999.999 0 000-1.414L5.414 11H17a1 1 0 100-2z" fill="#999ca1"/></svg>
+            <p>Voltar</p>
+        </a>
+        
         <!-- O título muda se o 'ator.id' for nulo (Novo) ou não (Editar) -->
-        <h1 th:text="${ator.id == null ? 'Novo Ator' : 'Editar Ator'}">Formulário de Ator</h1>
+        <h1 th:text="${ator.id == null ? 'Novo Ator' : 'Editar Ator'}">Cadastrar Ator</h1>
+        <p>Preencha os dados do ator/atriz</p>
 
         <!-- O formulário aponta para a URL /atores/salvar (POST) -->
         <!-- O th:object="${ator}" conecta este formulário ao objeto enviado pelo Controller -->
@@ -21,26 +30,26 @@
             <!-- ID oculto, essencial para o Spring saber qual ator ATUALIZAR -->
             <input type="hidden" th:field="*{id}" />
 
-            <div>
+            <div class="espaco-input">
                 <label for="nome">Nome:</label>
                 <!-- th:field="*{nome}" liga este input ao campo 'nome' do objeto 'ator' -->
-                <input type="text" id="nome" th:field="*{nome}" />
+                <input type="text" id="nome" th:field="*{nome}"/>
                 <!-- Mostra erros de validação (ex: @NotNull) para o campo 'nome' -->
                 <div class="error" th:if="${#fields.hasErrors('nome')}" 
                      th:errors="*{nome}"></div>
             </div>
             
-            <div>
+            <div class="espaco-input">
                 <label for="sobrenome">Sobrenome:</label>
                 <!-- th:field="*{sobrenome}" liga este input ao campo 'sobrenome' do objeto 'ator' -->
-                <input type="text" id="sobrenome" th:field="*{sobrenome}" />
+                <input type="text" id="sobrenome" th:field="*{sobrenome}"/>
                 <!-- Mostra erros de validação para o campo 'sobrenome' -->
                 <div class="error" th:if="${#fields.hasErrors('sobrenome')}" 
                      th:errors="*{sobrenome}"></div>
             </div>
 
-            <div>
-                <label for="dataNascimento">Data de Nascimento:</label>
+            <div class="espaco-input">
+                <label for="dataNascimento">Data de Estreia:</label>
                 <!-- O input type="date" funciona perfeitamente com o 'LocalDate' do Java -->
                 <input type="date" id="dataNascimento" th:field="*{dataNascimento}" />
                 <!-- Mostra erros de validação para o campo 'dataNascimento' -->
@@ -48,9 +57,8 @@
                      th:errors="*{dataNascimento}"></div>
             </div>
 
-            <div>
+            <div class="botoes">
                 <button type="submit">Salvar</button>
-                <a th:href="@{/atores/listar}">Cancelar</a>
             </div>
         </form>
     </div>

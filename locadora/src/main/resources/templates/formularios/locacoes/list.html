@@ -1,50 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Locações em Aberto</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos-list.css}">
 </head>
+
 <body>
     <div class="container">
-        <h1>Locações em Aberto</h1>
-        <a th:href="@{/locacoes/novo}" class="btn-novo">Nova Locação</a>
+        <div class="cabecalho">
+            <h1>Listagem de Locações em Aberto</h1>
+        </div>
+        <div class="lado-a-lado">
+            <div class="btn">
+                <a th:href="@{/locacoes/novo}">
+                    <svg fill="#825EF4" width="24px" height="24px" viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512 282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01 0-247.024 200.976-448 448-448s448 200.977 448 448-200.976 449.01-448 449.01zM736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32z" />
+                    </svg>
+                </a>
+            </div>
+            <div class="tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Itens Alugados (Valor)</th> <!-- Título Atualizado -->
+                            <th>Data Início</th>
+                            <th>Devolução Prevista</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="loc : ${listaLocacoes}">
+                            <td th:text="${loc.id}">1</td>
+                            <td th:text="${loc.cliente.nome + ' ' + loc.cliente.sobrenome}">Cliente</td>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Itens Alugados (Valor)</th> <!-- Título Atualizado -->
-                    <th>Data Início</th>
-                    <th>Devolução Prevista</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="loc : ${listaLocacoes}">
-                    <td th:text="${loc.id}">1</td>
-                    <td th:text="${loc.cliente.nome + ' ' + loc.cliente.sobrenome}">Cliente</td>
-                    
-                    <!-- COLUNA DE ITENS: Mostra Título e Valor -->
-                    <td>
-                        <div th:each="item : ${loc.itens}">
-                            
-                            <span th:text="${'- ' + item.exemplar.midia.titulo + ' (R$ ' + #numbers.formatDecimal(item.valor, 1, 2, 'COMMA') + ')'}">Matrix (R$ 10,00)</span>
-                        </div>
-                    </td>
-                    
-                    <td th:text="${#temporals.format(loc.dataInicio, 'dd/MM/yyyy')}">Data</td>
-                    <td th:text="${#temporals.format(loc.dataFim, 'dd/MM/yyyy')}">Data</td>
-                    <td>
-                        <a th:href="@{/locacoes/devolver/{id}(id=${loc.id})}" 
-                           class="btn-editar" 
-                           onclick="return confirm('Confirmar devolução? O item sairá desta lista.')">Devolver</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <a th:href="@{/}">Voltar ao Início</a>
+                            <!-- COLUNA DE ITENS: Mostra Título e Valor -->
+                            <td>
+                                <div th:each="item : ${loc.itens}">
+
+                                    <span
+                                        th:text="${'- ' + item.exemplar.midia.titulo + ' (R$ ' + #numbers.formatDecimal(item.valor, 1, 2, 'COMMA') + ')'}">Matrix
+                                        (R$ 10,00)</span>
+                                </div>
+                            </td>
+
+                            <td th:text="${#temporals.format(loc.dataInicio, 'dd/MM/yyyy')}">Data</td>
+                            <td th:text="${#temporals.format(loc.dataFim, 'dd/MM/yyyy')}">Data</td>
+                            <td style="display: flex; justify-content: space-evenly;">
+                                <a th:href="@{/locacoes/devolver/{id}(id=${loc.id})}"
+                                    onclick="return confirm('Confirmar devolução? O item sairá desta lista.')">Devolver</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>

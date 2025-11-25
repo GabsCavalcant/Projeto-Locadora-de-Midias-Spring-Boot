@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Exemplar</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos-forms.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .error { color: red; font-size: 0.9em; }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <!-- Título agora checa 'codigoInterno' -->
+        <a class="retorno" th:href="@{/exemplares/listar}">
+            <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17 9H5.414l3.293-3.293a.999.999 0 10-1.414-1.414l-5 5a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0 .999.999 0 000-1.414L5.414 11H17a1 1 0 100-2z"
+                    fill="#999ca1" />
+            </svg>
+            <p>Voltar</p>
+        </a>
+
         <h1 th:text="${exemplar.codigoInterno == null ? 'Novo Exemplar' : 'Editar Exemplar'}">Formulário</h1>
+        <p>Preencha os dados do Exemplar</p>
 
         <form th:action="@{/exemplares/salvar}" th:object="${exemplar}" method="post">
             <!-- O campo de ID 'id' foi REMOVIDO -->
 
-            <div>
+            <div class="espaco-input">
                 <label for="midia">Mídia:</label>
                 <select id="midia" th:field="*{midia}">
                     <option value="">Selecione a Mídia...</option>
-                    <option th:each="midia : ${listaMidias}"
-                            th:value="${midia.id}"
-                            th:text="${midia.titulo + ' (Ano: ' + midia.anoLancamento + ')'}"></option>
+                    <option th:each="midia : ${listaMidias}" th:value="${midia.id}"
+                        th:text="${midia.titulo + ' (Ano: ' + midia.anoLancamento + ')'}"></option>
                 </select>
                 <div class="error" th:if="${#fields.hasErrors('midia')}" th:errors="*{midia}"></div>
             </div>
 
-            <!-- CAMPO ATUALIZADO (codigoInterno agora é o ID) -->
-            <div>
+            <div class="espaco-input">
                 <label for="codigoInterno">Código Interno (ID):</label>
-                <!-- 
-                  Verifica se é um novo exemplar (null). Se for, permite editar.
-                  Se for uma edição (não null), bloqueia o campo (readonly) 
-                  para não deixar mudar a chave primária.
-                -->
-                <input type="text" id="codigoInterno" th:field="*{codigoInterno}" 
-                       th:readonly="${exemplar.codigoInterno != null}" />
+                <input type="text" id="codigoInterno" th:field="*{codigoInterno}"
+                    th:readonly="${exemplar.codigoInterno != null}" />
                 <div class="error" th:if="${#fields.hasErrors('codigoInterno')}" th:errors="*{codigoInterno}"></div>
             </div>
 
-            <div>
+            <div class="espaco-input">
                 <label for="disponivel">Disponível:</label>
                 <select id="disponivel" th:field="*{disponivel}">
                     <option value="true">Sim</option>
@@ -49,11 +57,11 @@
                 <div class="error" th:if="${#fields.hasErrors('disponivel')}" th:errors="*{disponivel}"></div>
             </div>
 
-            <div style="margin-top: 20px;">
+            <div class="botoes">
                 <button type="submit">Salvar</button>
-                <a th:href="@{/exemplares/listar}">Cancelar</a>
             </div>
         </form>
     </div>
 </body>
+
 </html>

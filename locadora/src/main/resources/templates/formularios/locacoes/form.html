@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Nova Locação</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos-forms.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
-        <h1>Nova Locação</h1>
+        <a class="retorno" th:href="@{/locacoes/listar}">
+            <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17 9H5.414l3.293-3.293a.999.999 0 10-1.414-1.414l-5 5a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0 .999.999 0 000-1.414L5.414 11H17a1 1 0 100-2z"
+                    fill="#999ca1" />
+            </svg>
+            <p>Voltar</p>
+        </a>
+
+        <h1>Cadastrar Locação</h1>
+        <p>Preencha os dados da Locação</p>
 
         <form th:action="@{/locacoes/salvar}" th:object="${locacao}" method="post">
-            
-            <!-- Seleção de Cliente -->
-            <div style="margin-bottom: 20px;">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="espaco-input">
                 <label>Cliente:</label>
                 <select th:field="*{cliente}" required>
                     <option value="">Selecione um Cliente...</option>
-                    <option th:each="cli : ${listaClientes}" 
-                            th:value="${cli.id}" 
-                            th:text="${cli.nome + ' ' + cli.sobrenome}"></option>
+                    <option th:each="cli : ${listaClientes}" th:value="${cli.id}"
+                        th:text="${cli.nome + ' ' + cli.sobrenome}"></option>
                 </select>
             </div>
 
             <!-- Seleção de Exemplares (Múltipla escolha) -->
-            <div style="margin-bottom: 20px;">
+            <div class="espaco-input">
                 <label>Exemplares Disponíveis (Segure Ctrl para selecionar vários):</label>
                 <br>
                 <select name="exemplaresSelecionados" multiple style="height: 150px; width: 100%;">
-                    <option th:each="ex : ${listaExemplaresDisponiveis}" 
-                            th:value="${ex.codigoInterno}" 
-                            th:text="${ex.midia.titulo + ' - Cód: ' + ex.codigoInterno}"></option>
+                    <option th:each="ex : ${listaExemplaresDisponiveis}" th:value="${ex.codigoInterno}"
+                        th:text="${ex.midia.titulo + ' - Cód: ' + ex.codigoInterno}"></option>
                 </select>
             </div>
-
-            <button type="submit">Realizar Locação</button>
-            <a th:href="@{/locacoes/listar}">Cancelar</a>
+            <div class="botoes">
+                <button type="submit">Salvar</button>
+            </div>
         </form>
     </div>
 </body>
+
 </html>

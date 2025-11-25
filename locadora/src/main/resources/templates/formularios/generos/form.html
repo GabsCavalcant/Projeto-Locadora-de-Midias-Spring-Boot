@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Gênero</title>
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos-forms.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
      
         .error {
@@ -14,20 +15,19 @@
 </head>
 <body>
     <div class="container">
-        <!-- O Título muda: se o ID for nulo, é 'Novo', senão é 'Editar' -->
-        <h1 th:text="${genero.id == null ? 'Novo Gênero' : 'Editar Gênero'}">Formulário de Gênero</h1>
+        <a class="retorno" th:href="@{/generos/listar}">
+            <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17 9H5.414l3.293-3.293a.999.999 0 10-1.414-1.414l-5 5a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0 .999.999 0 000-1.414L5.414 11H17a1 1 0 100-2z" fill="#999ca1"/></svg>
+            <p>Voltar</p>
+        </a>
+        <h1 th:text="${genero.id == null ? 'Novo Gênero' : 'Editar Gênero'}">Cadastrar Gênero</h1>
+        <p>Preencha as informações do Gênero</p>
 
-        <!-- 
-          Formulário Thymeleaf:
-          - th:action aponta para /generos/salvar (POST)
-          - th:object é o 'genero' (vazio ou preenchido) que veio do Controller
-        -->
         <form th:action="@{/generos/salvar}" th:object="${genero}" method="post">
             
             <!-- Campo de ID escondido. Necessário para o 'salvar' saber quem está editando -->
             <input type="hidden" th:field="*{id}" />
 
-            <div>
+            <div class="espaco-input">
                 <label for="descricao">Descrição:</label>
                 <!-- th:field liga este input ao atributo 'descricao' do 'genero' -->
                 <input type="text" id="descricao" th:field="*{descricao}" />
@@ -37,9 +37,8 @@
                      th:errors="*{descricao}"></div>
             </div>
 
-            <div>
+            <div class="botoes">
                 <button type="submit">Salvar</button>
-                <a th:href="@{/generos/listar}">Cancelar</a>
             </div>
         </form>
     </div>
